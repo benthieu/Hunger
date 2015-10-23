@@ -10,4 +10,8 @@
     <string name="dollar">$</string>
     <string name="choose_table">Choose Table</string>
     <string name="save">Save</string>
+    <string name="product_name">NAME</string>
+    <string name="product_sort">SORT</string>
+    <string name="product_price">PRICE</string>
+    <string name="product_color">COLOR</string>
 </resources>

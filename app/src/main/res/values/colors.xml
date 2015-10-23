@@ -11,4 +11,5 @@
     <color name="productAlc">#00838F</color>
     <color name="productDessert">#00ACC1</color>
     <color name="productEntry">#00ACC1</color>
+    <color name="text_newProduct">#00ACC1</color>
 </resources>
