@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="120dp"
+        android:id="@+id/btnOrders"
+        android:background="@color/buttons"
+        android:layout_marginLeft="40dp"
+        android:hint="@string/orders"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:textColor="@color/buttonsText"
+        android:layout_marginTop="60dp"/>
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="120dp"
+        android:id="@+id/btnProducts"
+        android:background="@color/buttons"
+        android:layout_marginLeft="40dp"
+        android:hint="@string/products"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="120dp"
+        android:id="@+id/btnDollar"
+        android:background="@color/buttons"
+        android:layout_marginLeft="40dp"
+        android:hint="@string/dollar"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"/>
+
+</LinearLayout>
