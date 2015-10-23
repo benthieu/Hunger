@@ -8,4 +8,5 @@
     <string name="orders">ORDERS</string>
     <string name="products">PRODUCTS</string>
     <string name="dollar">$</string>
+    <string name="add_order">Add Order</string>
 </resources>
