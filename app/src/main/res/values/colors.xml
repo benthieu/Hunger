@@ -8,7 +8,7 @@
     -->
     <color name="productDrink">#26C6DA</color>
     <color name="productMenu">#B2EBF2</color>
-    <color name="productAlc">#00838F</color> s
+    <color name="productAlc">#00838F</color>
     <color name="productDessert">#00ACC1</color>
     <color name="productEntry">#00ACC1</color>
 </resources>

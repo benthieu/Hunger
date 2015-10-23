@@ -8,8 +8,4 @@
     <string name="orders">ORDERS</string>
     <string name="products">PRODUCTS</string>
     <string name="dollar">$</string>
-    <string name="add_order">Add Order</string>
-    <string name="add_product">Add Product</string>
-    <string name="choose_table">Choose Table</string>
-    <string name="save">Save</string>
 </resources>
