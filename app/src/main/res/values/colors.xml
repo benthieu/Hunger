@@ -2,5 +2,6 @@
 <resources>
     <color name="backGround">#E0F7FA</color>
     <color name="buttons">#80DEEA</color>
-    <color name="buttonsText">#FFFFFF</color>
+    <color name="buttonsText">#000000</color>
+    <color name="text_newProduct">#00BCD4</color>
 </resources>
