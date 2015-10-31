@@ -8,27 +8,49 @@
     android:weightSum="3"
     android:background="@color/backGround">
 
-    <Button
+    <EditText
         android:layout_width="300dp"
-        android:layout_height="120dp"
-        android:id="@+id/btnEmployee"
+        android:layout_height="60dp"
+        android:id="@+id/editTxtUser"
         android:background="@color/buttons"
         android:layout_marginLeft="40dp"
-        android:hint="@string/Employee"
-        android:textSize="50sp"
-        android:textStyle="bold"
+        android:hint="@string/loginUser"
+        android:textSize="40sp"
+        android:textStyle="normal"
+        android:ellipsize="start"
+        android:gravity="center"
         android:textColor="@color/buttonsText"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:inputType="textPersonName"/>
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:id="@+id/editTxtPW"
+        android:background="@color/buttons"
+        android:layout_marginLeft="40dp"
+        android:hint="@string/loginPW"
+        android:textSize="40sp"
+        android:textStyle="normal"
+        android:ellipsize="start"
+        android:gravity="center"
+        android:textColor="@color/buttonsText"
+        android:layout_marginTop="20dp"
+        android:inputType="textPassword"
+        />
 
     <Button
-        android:layout_width="300dp"
-        android:layout_height="120dp"
-        android:id="@+id/btnManager"
-        android:background="@color/buttons"
-        android:layout_marginLeft="40dp"
-        android:hint="@string/Manager"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/button_circle"
+        android:text="@string/btnLogin"
+        android:textColor="@color/buttonsText"
+        android:textSize="25sp"
+        android:layout_gravity="center_horizontal"
+        android:ellipsize="start"
+        android:gravity="center"
+        android:id="@+id/loginBTN"
+        android:onClick="goToMenuOrOrders"/>
 
 </LinearLayout>

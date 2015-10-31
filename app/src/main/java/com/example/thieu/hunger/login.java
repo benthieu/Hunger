@@ -1,9 +1,12 @@
 package com.example.thieu.hunger;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class login extends AppCompatActivity {
 
@@ -11,15 +14,25 @@ public class login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+        Button btn = (Button) findViewById(R.id.loginBTN);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToMenuOrOrders(v);
+            }
+        });
     }
 
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }
-
+    }*/
+    /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -33,5 +46,13 @@ public class login extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    }*/
+
+
+
+    private void goToMenuOrOrders(View v) {
+        Intent intent = new Intent(this, menu.class);
+        startActivity(intent);
     }
 }

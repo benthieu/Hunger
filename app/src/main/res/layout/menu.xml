@@ -16,7 +16,8 @@
         android:textSize="50sp"
         android:textStyle="bold"
         android:textColor="@color/buttonsText"
-        android:layout_marginTop="60dp"/>
+        android:layout_marginTop="60dp"
+        android:onClick="goToOrders"/>
 
     <Button
         android:layout_width="300dp"
@@ -27,7 +28,8 @@
         android:hint="@string/products"
         android:textSize="50sp"
         android:textStyle="bold"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:onClick="goToProducts"/>
 
     <Button
         android:layout_width="300dp"
@@ -35,9 +37,10 @@
         android:id="@+id/btnDollar"
         android:background="@color/buttons"
         android:layout_marginLeft="40dp"
-        android:hint="@string/dollar"
+        android:hint="@string/turnovers"
         android:textSize="50sp"
         android:textStyle="bold"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:onClick="goToTurnovers"/>
 
 </LinearLayout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backGround">
+
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:hint="@string/today"
+            android:textStyle="bold"
+            android:ellipsize="start"
+            android:gravity="center|bottom"
+            android:textSize="20dp"
+            android:id="@+id/today_Desc"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:hint="@string/month"
+            android:textStyle="bold"
+            android:ellipsize="start"
+            android:gravity="center|bottom"
+            android:textSize="20dp"
+            android:id="@+id/month_Desc"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:hint="@string/year"
+            android:textStyle="bold"
+            android:ellipsize="start"
+            android:gravity="center|bottom"
+            android:textSize="20dp"
+            android:id="@+id/year_Desc"
+            android:layout_marginLeft="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp">
+        
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/can_today"
+            android:background="@color/buttons"
+            android:hint="@string/soldToday"
+            android:ellipsize="start"
+            android:gravity="center"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/can_yesterday"
+            android:background="@color/buttons"
+            android:hint="@string/soldMonth"
+            android:ellipsize="start"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/can"
+            android:background="@color/buttons"
+            android:hint="@string/soldYear"
+            android:ellipsize="start"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:layout_marginLeft="10dp"/>
+
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listViewOrders"
+        android:layout_marginTop="10dp"
+        android:scrollbars="horizontal" />
+
+</LinearLayout>
