@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.support.v7.widget.Toolbar;
 
 public class login extends AppCompatActivity {
 
@@ -23,6 +24,8 @@ public class login extends AppCompatActivity {
                 goToMenuOrOrders(v);
             }
         });
+
+        getSupportActionBar().setTitle("LOGIN");
     }
 
     /*
@@ -32,7 +35,7 @@ public class login extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }*/
-    /*
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -41,15 +44,14 @@ public class login extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.iconInfo) {
+            Intent myIntent = new Intent(this, about.class);
+            startActivity(myIntent);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-    }*/
-
-
 
     private void goToMenuOrOrders(View v) {
         Intent intent = new Intent(this, menu.class);
