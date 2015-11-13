@@ -6,6 +6,8 @@ import android.content.Context;
 import com.example.thieu.hunger.db.HungerContract.ProductEntry;
 import com.example.thieu.hunger.db.HungerContract.UserEntry;
 import com.example.thieu.hunger.db.HungerContract.OrderEntry;
+import com.example.thieu.hunger.db.HungerContract.Connect_Order_Product_Entry;
+
 
 
 
@@ -33,6 +35,7 @@ public class SQLiteHelperClass extends SQLiteOpenHelper {
         db.execSQL(UserEntry.CREATE_TABLE_USER);
         db.execSQL(ProductEntry.CREATE_TABLE_PRODUCT);
         db.execSQL(OrderEntry.CREATE_TABLE_ORDER);
+        db.execSQL(Connect_Order_Product_Entry.TABLE_CONNECT_ORDER_PROD);
 
     }
 
@@ -42,6 +45,7 @@ public class SQLiteHelperClass extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + UserEntry.TABLE_USER);
         db.execSQL("DROP TABLE IF EXISTS " + ProductEntry.TABLE_PRODUCT);
         db.execSQL("DROP TABLE IF EXISTS " + OrderEntry.TABLE_ORDER);
+        db.execSQL("DROP TABLE IF EXISTS " + Connect_Order_Product_Entry.TABLE_CONNECT_ORDER_PROD);
 
         //create new tables
         onCreate(db);

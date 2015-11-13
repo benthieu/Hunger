@@ -69,4 +69,22 @@ public final class HungerContract {
                 + OrderEntry.KEY_ACCOMPLISHED + " TEXT, "
                 + ");";
     }
+
+    public static abstract class Connect_Order_Product_Entry implements BaseColumns {
+
+        public static final String TABLE_CONNECT_ORDER_PROD = "connect_order_prod";
+
+        //Product Column names
+        public static final String KEY_IDORDER = "idOrder";
+        public static final String KEY_IDPRODUCT = "idProduct";
+        public static final String KEY_AMOUNT= "amount";
+
+        //Table Order create
+        public static final String CREATE_TABLE_ORDER = "CREATE TABLE "
+                + TABLE_CONNECT_ORDER_PROD + "("
+                + Connect_Order_Product_Entry.KEY_IDORDER + " INTEGER FOREIGN KEY,"
+                + Connect_Order_Product_Entry.KEY_IDPRODUCT+ " INTEGER FOREIGN KEY,"
+                + Connect_Order_Product_Entry.KEY_AMOUNT + " TEXT, "
+                + ");";
+    }
 }
