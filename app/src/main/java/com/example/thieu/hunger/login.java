@@ -8,8 +8,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-public class login extends AppCompatActivity {
+import com.example.thieu.hunger.db.adapter.UserDataSource;
+import com.example.thieu.hunger.db.object.User;
 
+import java.util.List;
+
+public class login extends AppCompatActivity {
+    private UserDataSource uds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,9 +22,24 @@ public class login extends AppCompatActivity {
 
         Button btn = (Button) findViewById(R.id.loginBTN);
 
+        uds = new UserDataSource(this);
+        List<User> list = uds.getAllUsers();
+        if (list.size() == 0) {
+            User defaultUser = new User();
+            defaultUser.setPassword("admin");
+            defaultUser.setName("admin");
+            defaultUser.setType(true);
+            uds.createUser(defaultUser);
+        }
+
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                List<User> list = uds.getAllUsers();
+                for (User u :list) {
+
+                }
                 goToMenuOrOrders(v);
             }
         });
