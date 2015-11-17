@@ -7,6 +7,7 @@ import android.provider.BaseColumns;
  */
 public final class HungerContract {
     public static abstract class UserEntry implements BaseColumns {
+
         public static final String TABLE_USER = "user";
 
         //User Column names
@@ -22,6 +23,68 @@ public final class HungerContract {
                 + UserEntry.KEY_NAME + " TEXT, "
                 + UserEntry.KEY_PASSWORD + " TEXT, "
                 + UserEntry.KEY_TYPE + " INTEGER "
+                + ");";
+    }
+
+    public static abstract class ProductEntry implements BaseColumns {
+
+        public static final String TABLE_PRODUCT = "product";
+
+        //Product Column names
+        public static final String KEY_ID = "id";
+        public static final String KEY_NAME = "name";
+        public static final String KEY_PRICE = "price";
+        public static final String KEY_CATEGORY = "category";
+
+
+        //Table Product create
+        public static final String CREATE_TABLE_PRODUCT = "CREATE TABLE "
+                + TABLE_PRODUCT + "("
+                + ProductEntry.KEY_ID + " INTEGER PRIMARY KEY,"
+                + ProductEntry.KEY_NAME + " TEXT, "
+                + ProductEntry.KEY_PRICE + " TEXT, "
+                + ProductEntry.KEY_CATEGORY + " TEXT, "
+                + ");";
+    }
+
+    public static abstract class OrderEntry implements BaseColumns {
+
+        public static final String TABLE_ORDER = "order";
+
+        //Product Column names
+        public static final String KEY_ID = "id";
+        public static final String KEY_IDUSER = "idUser";
+        public static final String KEY_NUMTABLE = "numTable";
+        public static final String KEY_DATE = "date";
+        public static final String KEY_ACCOMPLISHED = "accomplished";
+
+
+        //Table Order create
+        public static final String CREATE_TABLE_ORDER = "CREATE TABLE "
+                + TABLE_ORDER + "("
+                + OrderEntry.KEY_ID + " INTEGER PRIMARY KEY,"
+                + OrderEntry.KEY_IDUSER+ " INTEGER FOREIGN KEY,"
+                + OrderEntry.KEY_NUMTABLE + " TEXT, "
+                + OrderEntry.KEY_DATE + " TEXT, "
+                + OrderEntry.KEY_ACCOMPLISHED + " TEXT, "
+                + ");";
+    }
+
+    public static abstract class Connect_Order_Product_Entry implements BaseColumns {
+
+        public static final String TABLE_CONNECT_ORDER_PROD = "connect_order_prod";
+
+        //Product Column names
+        public static final String KEY_IDORDER = "idOrder";
+        public static final String KEY_IDPRODUCT = "idProduct";
+        public static final String KEY_AMOUNT= "amount";
+
+        //Table Order create
+        public static final String CREATE_TABLE_ORDER = "CREATE TABLE "
+                + TABLE_CONNECT_ORDER_PROD + "("
+                + Connect_Order_Product_Entry.KEY_IDORDER + " INTEGER FOREIGN KEY,"
+                + Connect_Order_Product_Entry.KEY_IDPRODUCT+ " INTEGER FOREIGN KEY,"
+                + Connect_Order_Product_Entry.KEY_AMOUNT + " TEXT, "
                 + ");";
     }
 }

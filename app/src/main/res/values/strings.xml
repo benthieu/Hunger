@@ -29,5 +29,6 @@
     <string name="month">MONTH</string>
     <string name="year">YEAR</string>
     <string name="title_activity_menu">menu</string>
+    <string name="action_info">About</string>
 
 </resources>
