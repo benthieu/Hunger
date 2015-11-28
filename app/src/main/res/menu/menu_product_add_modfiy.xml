@@ -1,0 +1,11 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".product_add_modify">
+    <item
+        android:icon="@drawable/delete"
+        android:title="@string/title_activity_product_delete"
+        android:showAsAction="ifRoom"
+        android:id="@+id/delete_product_button"/>
+</menu>

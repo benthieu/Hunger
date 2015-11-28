@@ -1,59 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:label="LinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="80dp"
+    android:paddingTop="30dp"
     android:weightSum="3"
     android:background="@color/backGround">
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:id="@+id/editTxtUser"
+        android:id="@+id/add_modify_user_name"
         android:background="@color/buttons"
-        android:layout_gravity="center"
-        android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:hint="@string/loginUser"
         android:textSize="30sp"
         android:textStyle="normal"
-        android:ellipsize="start"
-        android:gravity="center"
         android:textColor="@color/buttonsText"
         android:layout_marginTop="20dp"
         android:inputType="textPersonName"/>
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_gravity="center"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
         android:layout_height="60dp"
-        android:id="@+id/editTxtPW"
+        android:id="@+id/add_modify_user_password"
         android:background="@color/buttons"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:hint="@string/loginPW"
         android:textSize="30sp"
         android:textStyle="normal"
-        android:ellipsize="start"
-        android:gravity="center"
         android:textColor="@color/buttonsText"
         android:layout_marginTop="20dp"
         android:inputType="textPassword"
         />
 
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/is_admin"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="30sp"
+        android:layout_marginTop="20dp"
+        android:textStyle="normal"
+        android:id="@+id/add_modify_user_is_admin" />
+
     <Button
-        android:layout_marginTop="30dp"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@drawable/button_circle"
-        android:text="@string/btnLogin"
+        android:layout_marginTop="40dp"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:background="@color/buttons"
+        android:text="@string/save"
         android:textColor="@color/buttonsText"
         android:textSize="25sp"
         android:layout_gravity="center_horizontal"
-        android:ellipsize="start"
-        android:gravity="center"
-        android:id="@+id/loginBTN"/>
+        android:id="@+id/add_modify_user_save"/>
 
 </LinearLayout>

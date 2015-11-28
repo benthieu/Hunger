@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Hunger</string>
-
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="Manager">MANAGER</string>
@@ -10,9 +9,7 @@
     <string name="products">PRODUCTS</string>
     <string name="choose_table">Choose Table</string>
     <string name="save">Save</string>
-    <string name="product_name">NAME</string>
     <string name="product_sort">SORT</string>
-    <string name="product_price">PRICE</string>
     <string name="product_color">COLOR</string>
     <string name="add_product">Add Product</string>
     <string name="add_order">ADD ORDER</string>
@@ -31,5 +28,25 @@
     <string name="title_activity_menu">menu</string>
     <string name="action_info">About</string>
     <string name="login_failure">Password wrong or user doesn\'t exist</string>
-
+    <string name="logout">Logout</string>
+    <string name="user_management">User Management</string>
+    <string name="title_activity_user_management">User Management</string>
+    <string name="add_user">Add User</string>
+    <string name="title_activity_user_add">Add User</string>
+    <string name="title_activity_user_modify">Modify User</string>
+    <string name="title_activity_user_delete">Delete user</string>
+    <string name="cant_delete_logged_in_user">Sorry, you can\'t delete an active user</string>
+    <string name="cant_modify_logged_in_user">Sorry, you can\'t modify an active user</string>
+    <string name="is_admin">Admin?</string>
+    <string name="product_category0">Menu</string>
+    <string name="product_category1">Dessert</string>
+    <string name="product_category2">Drink</string>
+    <string name="product_category3">Drink (alc)</string>
+    <string name="product_category4">Simple Product</string>
+    <string name="products_view">Product Overview</string>
+    <string name="title_activity_product_add">Add Product</string>
+    <string name="title_activity_product_modify">Modify Product</string>
+    <string name="title_activity_product_delete">Delete Product</string>
+    <string name="product_name">Product Name</string>
+    <string name="product_price">Price</string>
 </resources>

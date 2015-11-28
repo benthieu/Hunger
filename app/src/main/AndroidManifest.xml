@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.thieu.hunger" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="28" />
+
+    <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,13 +20,39 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".menu"
             android:label="@string/title_activity_menu"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:parentActivityName=".login" >
+        </activity>
+        <activity
+            android:name=".about"
+            android:label="about"
+            android:parentActivityName=".login" />
+        <activity
+            android:name=".user_management"
+            android:label="@string/title_activity_user_management"
+            android:parentActivityName=".menu" >
+        </activity>
+        <activity
+            android:name=".user_add_modify"
+            android:label="@string/title_activity_user_add"
+            android:parentActivityName=".user_management" >
+        </activity>
+        <activity
+            android:name=".product_add_modify"
+            android:label="@string/title_activity_product_add"
+            android:parentActivityName=".products_view" >
+        </activity>
+        <activity
+            android:name=".products_view"
+            android:label="@string/products_view"
+            android:parentActivityName=".menu" >
         </activity>
     </application>
+
 </manifest>
