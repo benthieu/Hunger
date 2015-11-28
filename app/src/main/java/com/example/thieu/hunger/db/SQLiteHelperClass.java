@@ -15,7 +15,7 @@ public class SQLiteHelperClass extends SQLiteOpenHelper {
     private SQLiteDatabase db;
 
     private static final String DATABASE_NAME = "hunger";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static SQLiteHelperClass instance;
 
     private SQLiteHelperClass(Context context) {
@@ -35,7 +35,7 @@ public class SQLiteHelperClass extends SQLiteOpenHelper {
         db.execSQL(UserEntry.CREATE_TABLE_USER);
         db.execSQL(ProductEntry.CREATE_TABLE_PRODUCT);
         db.execSQL(OrderEntry.CREATE_TABLE_ORDER);
-        db.execSQL(Connect_Order_Product_Entry.TABLE_CONNECT_ORDER_PROD);
+        db.execSQL(Connect_Order_Product_Entry.CREATE_TABLE_CONNECT_ORDER_PROD);
 
     }
 

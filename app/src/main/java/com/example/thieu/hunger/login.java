@@ -3,11 +3,15 @@ package com.example.thieu.hunger;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.support.v7.widget.Toolbar;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.thieu.hunger.db.adapter.UserDataSource;
 import com.example.thieu.hunger.db.object.User;
@@ -33,15 +37,32 @@ public class login extends AppCompatActivity {
             uds.createUser(defaultUser);
         }
 
+        for (User u :list) {
+            u.setIsLogged(false);
+            uds.updateUser(u);
+        }
+
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String username = ((EditText) findViewById(R.id.editTxtUser)).getText().toString();
+                String password = ((EditText) findViewById(R.id.editTxtPW)).getText().toString();
                 List<User> list = uds.getAllUsers();
+                boolean loginSuccess = false;
                 for (User u :list) {
-
+                    if (u.getName().toString().equals(username) && u.getPassword().toString().equals(password)) {
+                        loginSuccess = true;
+                        u.setIsLogged(true);
+                        uds.updateUser(u);
+                    }
                 }
-                goToMenuOrOrders(v);
+                if (loginSuccess) {
+                    goToMenuOrOrders(v);
+                }
+                else {
+                    Toast.makeText(login.this.getApplicationContext(), getResources().getString(R.string.login_failure), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

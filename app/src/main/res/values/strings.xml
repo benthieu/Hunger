@@ -30,5 +30,6 @@
     <string name="year">YEAR</string>
     <string name="title_activity_menu">menu</string>
     <string name="action_info">About</string>
+    <string name="login_failure">Password wrong or user doesn\'t exist</string>
 
 </resources>

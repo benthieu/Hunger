@@ -32,11 +32,34 @@ public class UserDataSource {
         ContentValues values = new ContentValues();
         values.put(UserEntry.KEY_NAME, user.getName());
         values.put(UserEntry.KEY_PASSWORD, user.getPassword());
-        values.put(UserEntry.KEY_TYPE, user.getType());
+        values.put(UserEntry.KEY_TYPE, user.getType() ? 1 : 0);
+        values.put(UserEntry.KEY_ISLOGGED, user.isLogged() ? 1 : 0);
 
         id = this.db.insert(UserEntry.TABLE_USER, null, values);
-
         return id;
+    }
+
+    /**
+     * Find one user by Id
+     */
+    public User getLoggedInUser(){
+        String sql = "SELECT * FROM " + UserEntry.TABLE_USER +
+                " WHERE " + UserEntry.KEY_ISLOGGED + " = 1";
+
+        Cursor cursor = this.db.rawQuery(sql, null);
+
+        if(cursor != null){
+            cursor.moveToFirst();
+        }
+
+        User user = new User();
+        user.setId(cursor.getInt(cursor.getColumnIndex(UserEntry.KEY_ID)));
+        user.setName(cursor.getString(cursor.getColumnIndex(UserEntry.KEY_NAME)));
+        user.setPassword(cursor.getString(cursor.getColumnIndex(UserEntry.KEY_PASSWORD)));
+        user.setType(cursor.getInt(cursor.getColumnIndex(UserEntry.KEY_TYPE)) != 0);
+        user.setIsLogged(cursor.getInt(cursor.getColumnIndex(UserEntry.KEY_ISLOGGED)) != 0);
+
+        return user;
     }
 
     /**
@@ -56,7 +79,8 @@ public class UserDataSource {
         user.setId(cursor.getInt(cursor.getColumnIndex(UserEntry.KEY_ID)));
         user.setName(cursor.getString(cursor.getColumnIndex(UserEntry.KEY_NAME)));
         user.setPassword(cursor.getString(cursor.getColumnIndex(UserEntry.KEY_PASSWORD)));
-        user.setType(cursor.getInt(cursor.getColumnIndex(UserEntry.KEY_TYPE))!=0);
+        user.setType(cursor.getInt(cursor.getColumnIndex(UserEntry.KEY_TYPE)) != 0);
+        user.setIsLogged(cursor.getInt(cursor.getColumnIndex(UserEntry.KEY_ISLOGGED)) != 0);
 
         return user;
     }
@@ -77,6 +101,7 @@ public class UserDataSource {
                 user.setName(cursor.getString(cursor.getColumnIndex(UserEntry.KEY_NAME)));
                 user.setPassword(cursor.getString(cursor.getColumnIndex(UserEntry.KEY_PASSWORD)));
                 user.setType(cursor.getInt(cursor.getColumnIndex(UserEntry.KEY_TYPE)) != 0);
+                user.setIsLogged(cursor.getInt(cursor.getColumnIndex(UserEntry.KEY_ISLOGGED)) != 0);
 
                 users.add(user);
             } while(cursor.moveToNext());
@@ -93,6 +118,7 @@ public class UserDataSource {
         values.put(UserEntry.KEY_NAME, user.getName());
         values.put(UserEntry.KEY_PASSWORD, user.getPassword());
         values.put(UserEntry.KEY_TYPE, user.getType());
+        values.put(UserEntry.KEY_ISLOGGED, user.isLogged());
 
         return this.db.update(UserEntry.TABLE_USER, values, UserEntry.KEY_ID + " = ?",
                 new String[] { String.valueOf(user.getId()) });

@@ -8,7 +8,14 @@ public class User {
     private String name;
     private String password;
     private boolean type;
+    private boolean isLogged;
 
+    public boolean isLogged() {
+        return isLogged;
+    }
+    public void setIsLogged(boolean isLogged) {
+        this.isLogged = isLogged;
+    }
     public int getId() {
         return id;
     }
