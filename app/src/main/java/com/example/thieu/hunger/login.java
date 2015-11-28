@@ -1,16 +1,15 @@
 package com.example.thieu.hunger;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.thieu.hunger.db.adapter.UserDataSource;
@@ -18,15 +17,13 @@ import com.example.thieu.hunger.db.object.User;
 
 import java.util.List;
 
-public class login extends AppCompatActivity {
+public class login extends Activity {
     private UserDataSource uds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-
         Button btn = (Button) findViewById(R.id.loginBTN);
-
         uds = new UserDataSource(this);
         List<User> list = uds.getAllUsers();
         if (list.size() == 0) {
@@ -36,13 +33,10 @@ public class login extends AppCompatActivity {
             defaultUser.setType(true);
             uds.createUser(defaultUser);
         }
-
         for (User u :list) {
             u.setIsLogged(false);
             uds.updateUser(u);
         }
-
-
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +44,7 @@ public class login extends AppCompatActivity {
                 String password = ((EditText) findViewById(R.id.editTxtPW)).getText().toString();
                 List<User> list = uds.getAllUsers();
                 boolean loginSuccess = false;
-                for (User u :list) {
+                for (User u : list) {
                     if (u.getName().toString().equals(username) && u.getPassword().toString().equals(password)) {
                         loginSuccess = true;
                         u.setIsLogged(true);
@@ -59,23 +53,39 @@ public class login extends AppCompatActivity {
                 }
                 if (loginSuccess) {
                     goToMenuOrOrders(v);
-                }
-                else {
+                } else {
                     Toast.makeText(login.this.getApplicationContext(), getResources().getString(R.string.login_failure), Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
-        getSupportActionBar().setTitle("LOGIN");
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_login, menu);
+        getActionBar().setTitle(R.string.app_name);
+        getActionBar().setDisplayHomeAsUpEnabled(false);
+        getActionBar().setIcon(R.drawable.main_logo);
+        return true;
+    }
     /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_login, menu);
         return true;
     }*/
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        List<User> list = uds.getAllUsers();
+        for (User u :list) {
+            u.setIsLogged(false);
+            uds.updateUser(u);
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

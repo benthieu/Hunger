@@ -90,7 +90,7 @@ public class UserDataSource {
      */
     public List<User> getAllUsers(){
         List<User> users = new ArrayList<User>();
-        String sql = "SELECT * FROM " + UserEntry.TABLE_USER + " ORDER BY " + UserEntry.KEY_NAME;
+        String sql = "SELECT * FROM " + UserEntry.TABLE_USER + " ORDER BY " + UserEntry.KEY_ID;
 
         Cursor cursor = this.db.rawQuery(sql, null);
 

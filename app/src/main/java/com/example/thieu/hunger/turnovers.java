@@ -1,13 +1,13 @@
 package com.example.thieu.hunger;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 /**
  * Created by HugoCastanheiro on 31.10.15.
  */
-public class turnovers extends AppCompatActivity {
+public class turnovers extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

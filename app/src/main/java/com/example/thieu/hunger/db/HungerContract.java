@@ -45,7 +45,7 @@ public final class HungerContract {
                 + ProductEntry.KEY_ID + " INTEGER PRIMARY KEY,"
                 + ProductEntry.KEY_NAME + " TEXT, "
                 + ProductEntry.KEY_PRICE + " TEXT, "
-                + ProductEntry.KEY_CATEGORY + " TEXT "
+                + ProductEntry.KEY_CATEGORY + " INT "
                 + ");";
     }
 

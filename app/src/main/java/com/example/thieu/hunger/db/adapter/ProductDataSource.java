@@ -69,7 +69,7 @@ public class ProductDataSource {
      */
     public List<Product> getAllProducts(){
         List<Product> products = new ArrayList<Product>();
-        String sql = "SELECT * FROM " + ProductEntry.TABLE_PRODUCT + " ORDER BY " + ProductEntry.KEY_NAME;
+        String sql = "SELECT * FROM " + ProductEntry.TABLE_PRODUCT + " ORDER BY " + ProductEntry.KEY_CATEGORY +"," + ProductEntry.KEY_NAME;
 
         Cursor cursor = this.db.rawQuery(sql, null);
 
