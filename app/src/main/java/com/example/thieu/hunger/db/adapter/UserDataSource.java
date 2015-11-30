@@ -11,15 +11,13 @@ import com.example.thieu.hunger.db.object.User;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by benjamin on 07.11.2015.
- */
 public class UserDataSource {
     private SQLiteDatabase db;
     private Context context;
 
     public UserDataSource(Context context){
         SQLiteHelperClass sqliteHelper = SQLiteHelperClass.getInstance(context);
+        // get database
         db = sqliteHelper.getWritableDatabase();
         this.context = context;
     }
@@ -40,7 +38,7 @@ public class UserDataSource {
     }
 
     /**
-     * Find one user by Id
+     * Find active user
      */
     public User getLoggedInUser(){
         String sql = "SELECT * FROM " + UserEntry.TABLE_USER +

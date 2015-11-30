@@ -33,12 +33,16 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by HugoCastanheiro on 31.10.15.
+ * Turnover view that shows the turnover of day/month/year
  */
 public class turnovers extends Activity {
+    // init order data source
     private OrderDataSource ods;
+    // init connection data source
     private Connect_Order_Product_DataSource cds;
+    // init product data source
     private ProductDataSource pds;
+    // init user data source
     private UserDataSource uds;
     private ListView list;
     private Button day_button;
@@ -50,22 +54,31 @@ public class turnovers extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.turnovers);
+        // list type 0 means day view (standard)
         list_type = 0;
         ods = new OrderDataSource(this);
         cds = new Connect_Order_Product_DataSource(this);
         pds = new ProductDataSource(this);
         uds = new UserDataSource(this);
+        // get all users from database
         users = uds.getAllUsers();
-        //Calendar set to the current date
+
         Calendar calendarday=Calendar.getInstance();
         calendarday.add(Calendar.DAY_OF_YEAR, -1);
+        // get all orders of this day
         ArrayList<Order> ordersday = ods.getAllOrdersNewerThan((int) (calendarday.getTimeInMillis() / 1000));
+
         Calendar calendarmonth=Calendar.getInstance();
         calendarmonth.add(Calendar.DAY_OF_YEAR, -30);
+        // get all orders of this month
         ArrayList<Order> ordersmonth = ods.getAllOrdersNewerThan((int) (calendarmonth.getTimeInMillis() / 1000));
+
         Calendar calendaryear=Calendar.getInstance();
         calendaryear.add(Calendar.DAY_OF_YEAR, -360);
+        // get all orders of this year
         ArrayList<Order> ordersyear = ods.getAllOrdersNewerThan((int) (calendaryear.getTimeInMillis() / 1000));
+
+        // prepare data for this day
         int dayval = 0;
         for (Order o : ordersday) {
             int count = 0;
@@ -85,10 +98,12 @@ public class turnovers extends Activity {
                 }
             }
         }
+        // set amount to button
         day_button = (Button) findViewById(R.id.can_today);
         day_button.setText(String.format("%.2f", dayval / 100.00)+ " " + getResources().getString(R.string.currency));
         day_button.setOnClickListener(new turnClick());
 
+        // prepare data for month view
         int monthval = 0;
         for (Order o : ordersmonth) {
             int count = 0;
@@ -108,10 +123,12 @@ public class turnovers extends Activity {
                 }
             }
         }
+        // set month total to button text
         month_button = (Button) findViewById(R.id.can_month);
         month_button.setText(String.format("%.2f", monthval/100.00)+" "+getResources().getString(R.string.currency));
         month_button.setOnClickListener(new turnClick());
 
+        // prepare year view data
         int yearval = 0;
         for (Order o : ordersyear) {
             int count = 0;
@@ -131,6 +148,7 @@ public class turnovers extends Activity {
                 }
             }
         }
+        // set year total amount to button
         year_button = (Button) findViewById(R.id.can_year);
         year_button.setText(String.format("%.2f", yearval/100.00)+" "+getResources().getString(R.string.currency));
         year_button.setOnClickListener(new turnClick());
@@ -139,10 +157,14 @@ public class turnovers extends Activity {
         list.setAdapter(this.recreateList());
     }
 
+    // trigger day/month/year button click
     public class turnClick implements View.OnClickListener {
-
         @Override
         public void onClick(View v) {
+            // set list type
+            // 0 = day
+            // 1 = month
+            // 2 = year
             switch(v.getId()) {
                 case R.id.can_today:
                     list_type = 0;
@@ -154,12 +176,15 @@ public class turnovers extends Activity {
                     list_type = 2;
                     break;
             }
+            // recreate list of user amount
             list.setAdapter(recreateList());
         }
     }
 
+    /**
+     * function to recreate list, based on data calculated before
+     */
     public ArrayAdapter<String> recreateList() {
-        final List<Order> orders = ods.getAllOrders();
         ArrayAdapter<String>adapter = new ArrayAdapter<String>(this, R.layout.turnover_list_elem, new String[users.size()]){
 
             // Call for every entry in the ArrayAdapter
@@ -174,10 +199,11 @@ public class turnovers extends Activity {
                 } else {
                     view = convertView;
                 }
-                //Add Text to the layout
+                // set user name
                 TextView textView1 = (TextView) view.findViewById(R.id.listview_turnover_user);
                 textView1.setText(users.get(position).getName());
 
+                // set user amount day/month/year
                 TextView textView2 = (TextView) view.findViewById(R.id.listview_turnover_amount);
                 int amount = 0;
                 if (list_type == 0) {
@@ -196,6 +222,7 @@ public class turnovers extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        // create menu
         getActionBar().setTitle(R.string.turnovers_title);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setIcon(R.drawable.main_logo);

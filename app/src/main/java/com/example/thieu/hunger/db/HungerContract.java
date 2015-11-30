@@ -2,21 +2,16 @@ package com.example.thieu.hunger.db;
 
 import android.provider.BaseColumns;
 
-/**
- * Created by benjamin on 07.11.2015.
- */
 public final class HungerContract {
     public static abstract class UserEntry implements BaseColumns {
 
         public static final String TABLE_USER = "user";
-
         //User Column names
         public static final String KEY_ID = "id";
         public static final String KEY_NAME = "name";
         public static final String KEY_PASSWORD = "password";
         public static final String KEY_TYPE = "type";
         public static final String KEY_ISLOGGED = "islogged";
-
         //Table User create
         public static final String CREATE_TABLE_USER = "CREATE TABLE "
                 + TABLE_USER + " ("
@@ -31,14 +26,11 @@ public final class HungerContract {
     public static abstract class ProductEntry implements BaseColumns {
 
         public static final String TABLE_PRODUCT = "product";
-
         //Product Column names
         public static final String KEY_ID = "id";
         public static final String KEY_NAME = "name";
         public static final String KEY_PRICE = "price";
         public static final String KEY_CATEGORY = "category";
-
-
         //Table Product create
         public static final String CREATE_TABLE_PRODUCT = "CREATE TABLE "
                 + TABLE_PRODUCT + " ("
@@ -52,14 +44,11 @@ public final class HungerContract {
     public static abstract class OrderEntry implements BaseColumns {
 
         public static final String TABLE_ORDER = "orders";
-
         //Product Column names
         public static final String KEY_ID = "id";
         public static final String KEY_IDUSER = "idUser";
         public static final String KEY_NUMTABLE = "numTable";
         public static final String KEY_DATE = "orderDate";
-
-
         //Table Order create
         public static final String CREATE_TABLE_ORDER = "CREATE TABLE "
                 + TABLE_ORDER + " ("
@@ -73,13 +62,11 @@ public final class HungerContract {
     public static abstract class Connect_Order_Product_Entry implements BaseColumns {
 
         public static final String TABLE_CONNECT_ORDER_PROD = "connect_order_prod";
-
-        //Product Column names
+        //Connection Column names
         public static final String KEY_IDORDER = "idOrder";
         public static final String KEY_IDPRODUCT = "idProduct";
         public static final String KEY_AMOUNT = "amount";
-
-        //Table Order create
+        //Table Connection create
         public static final String CREATE_TABLE_CONNECT_ORDER_PROD = "CREATE TABLE "
                 + TABLE_CONNECT_ORDER_PROD + "( "
                 + Connect_Order_Product_Entry.KEY_IDORDER + " INTEGER, "

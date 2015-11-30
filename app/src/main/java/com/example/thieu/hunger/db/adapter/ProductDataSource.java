@@ -13,15 +13,13 @@ import com.example.thieu.hunger.db.object.User;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by HugoCastanheiro on 07.11.15.
- */
 public class ProductDataSource {
     private SQLiteDatabase db;
     private Context context;
 
     public ProductDataSource(Context context){
         SQLiteHelperClass sqliteHelper = SQLiteHelperClass.getInstance(context);
+        // get database
         db = sqliteHelper.getWritableDatabase();
         this.context = context;
     }

@@ -19,8 +19,12 @@ import com.example.thieu.hunger.db.adapter.UserDataSource;
 import com.example.thieu.hunger.db.object.Product;
 import com.example.thieu.hunger.db.object.User;
 
+/**
+ * View to edit/add/delete product
+ */
 public class product_add_modify extends Activity {
     private int product_id;
+    // init product data source
     private ProductDataSource pds;
     private EditText product_name;
     private EditText product_price;
@@ -32,40 +36,52 @@ public class product_add_modify extends Activity {
         setContentView(R.layout.product_add_modify);
         pds = new ProductDataSource(this);
 
+        // get input fields
         product_name = (EditText) findViewById(R.id.add_modify_product_name);
         product_price = (EditText) findViewById(R.id.add_modify_product_price);
         product_category = (Spinner) findViewById(R.id.add_modify_product_category);
 
+        // set category spinner adapter
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.categories_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         product_category.setAdapter(adapter);
 
         Intent myIntent = getIntent(); // gets the previously created intent
-        product_id = myIntent.getIntExtra("product_id", 0); // will return "FirstKeyValue"
+        // get product id from parameter
+        product_id = myIntent.getIntExtra("product_id", 0);
         if (product_id != 0) {
+            // we are in edit mode
+            // get product from database
             Product mod_product = pds.getProductById(product_id);
+            // set product name
             product_name.setText(mod_product.getName());
+            // set product text
             product_price.setText(String.valueOf(mod_product.getPrice()/100.00));
+            // set category
             product_category.setSelection(mod_product.getCategory());
         }
         Button btn = (Button) findViewById(R.id.add_modify_product_save);
+        // trigger save button click
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // get name,price and category from view
                 String name = product_name.getText().toString();
                 int price = (int)Math.round(Float.valueOf(product_price.getText().toString())*100.00);
                 int category = product_category.getSelectedItemPosition();
-
+                // set to product
                 Product temp_product = new Product();
                 temp_product.setName(name);
                 temp_product.setPrice(price);
                 temp_product.setCategory(category);
 
                 if (product_id != 0) {
+                    // edit mode, so update product
                     temp_product.setId(product_id);
                     pds.updateProduct(temp_product);
                 } else {
+                    // add mode, so insert product
                     pds.createProduct(temp_product);
                 }
                 finish();
@@ -75,11 +91,14 @@ public class product_add_modify extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        // create product
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_product_add_modfiy, menu);
         if (product_id == 0){
+            // set activity add title
             getActionBar().setTitle(R.string.title_activity_product_add);
         } else {
+            // set activity edit title
             getActionBar().setTitle(R.string.title_activity_product_modify);
         }
         getActionBar().setDisplayHomeAsUpEnabled(true);

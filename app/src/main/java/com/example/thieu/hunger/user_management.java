@@ -20,6 +20,9 @@ import com.example.thieu.hunger.db.object.User;
 
 import java.util.List;
 
+/**
+ * view to manage users
+ */
 public class user_management extends Activity {
     private UserDataSource uds;
     private ListView list;
@@ -27,20 +30,22 @@ public class user_management extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_management);
-
+        // init user data source
         uds = new UserDataSource(this);
 
         list = (ListView) findViewById(R.id.userManagementList);
+        // set list adapter
         list.setAdapter(this.recreateList());
 
-        //ListeView handler
+        // trigger user list click
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-
+                // open user modify view
                 Intent myIntent = new Intent(user_management.this, user_add_modify.class);
+                // pass user id
                 myIntent.putExtra("user_id", uds.getAllUsers().get(position).getId());
                 startActivity(myIntent);
             }
@@ -49,13 +54,15 @@ public class user_management extends Activity {
 
     @Override
     public void onResume() {
-        super.onResume();  // Always call the superclass method first
+        super.onResume();
+        // on resume recreate list (data could have been changed)
         list.setAdapter(this.recreateList());
     }
 
     public ArrayAdapter<String> recreateList() {
+        // get all users from database
         List<User> users = uds.getAllUsers();
-
+        // write in array
         final String [] users_arr = new String[users.size()];
         int c = 0;
         for (User u :users) {
@@ -63,7 +70,6 @@ public class user_management extends Activity {
             c++;
         }
         ArrayAdapter<String>adapter = new ArrayAdapter<String>(this, R.layout.user_list_elem, users_arr){
-
             // Call for every entry in the ArrayAdapter
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -76,13 +82,9 @@ public class user_management extends Activity {
                 } else {
                     view = convertView;
                 }
-
-                //Add Text to the layout
+                // set username to view
                 TextView textView1 = (TextView) view.findViewById(R.id.listview_user);
                 textView1.setText(users_arr[position]);
-
-
-
                 return view;
             }
         };
@@ -91,6 +93,7 @@ public class user_management extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        // create menu
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_user_management, menu);
         getActionBar().setTitle(R.string.user_management);
@@ -107,6 +110,8 @@ public class user_management extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.add_user) {
+            // we want to add a new user
+            // start user add activity
             Intent myIntent = new Intent(this, user_add_modify.class);
             startActivity(myIntent);
             return true;

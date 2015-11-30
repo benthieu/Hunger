@@ -25,9 +25,6 @@ import com.example.thieu.hunger.db.object.Product;
 
 import java.util.ArrayList;
 
-/**
- * Created by HugoCastanheiro on 31.10.15.
- */
 public class order_add_modify extends Activity {
     private int order_id;
     private OrderDataSource ods;
@@ -52,11 +49,17 @@ public class order_add_modify extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_add_modify);
+        // init order data source
         ods = new OrderDataSource(this);
+        // init connection data source
         cds = new Connect_Order_Product_DataSource(this);
+        // init user data source
         uds = new UserDataSource(this);
+        // init product data source
         pds = new ProductDataSource(this);
         table_select_view = (TextView) findViewById(R.id.order_add_modify_table_select);
+
+        // init all table buttons
         order_table_1 = (Button) findViewById(R.id.order_table_1);
         order_table_1.setOnClickListener(new TableClick());
         order_table_2 = (Button) findViewById(R.id.order_table_2);
@@ -74,10 +77,13 @@ public class order_add_modify extends Activity {
         order_table_8 = (Button) findViewById(R.id.order_table_8);
         order_table_8.setOnClickListener(new TableClick());
 
+
         add_product = (Button) findViewById(R.id.order_add_product);
+        // trigger add product click
         add_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // create new product view and pass existing connection list as parameter
                 Intent i = new Intent(order_add_modify.this,products_view.class);
                 i.putExtra("wantsCallback", true);
                 i.putExtra("connect_order_product_list", temp_con);
@@ -86,43 +92,63 @@ public class order_add_modify extends Activity {
         });
 
         Intent myIntent = getIntent(); // gets the previously created intent
-        order_id = myIntent.getIntExtra("order_id", 0); // will return "FirstKeyValue"
+
+        // get order id (if exists)
+        order_id = myIntent.getIntExtra("order_id", 0);
+        // check if we are in edit or add mode
         if (order_id != 0) {
+            // we are in edit mode so we get the order from the database
             Order mod_order = ods.getOrderById(order_id);
+            // we set the active table
             setActiveTable(mod_order.getNumTable());
+            // we set all active product connections
             temp_con = cds.getAllConnectionsByOrderId(order_id);
         } else {
+            // we are in add mode
+            // we set an empty list as product connections
             temp_con = new ArrayList<Connect_Order_Prod>();
         }
 
         order_product_view = (ListView) findViewById(R.id.order_product_view);
+        // create list view adapter
         order_product_view.setAdapter(this.createList());
 
+        // trigger list view product click
         order_product_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+                // the user clicked on an existing product
                 Connect_Order_Prod temp_prod_con = temp_con.get(position);
+                // we remove one product
                 temp_prod_con.setAmount(temp_prod_con.getAmount() - 1);
+                // if the product amount is zero, we remove the product
                 if (temp_prod_con.getAmount() <= 0) {
                     temp_con.remove(position);
                 }
+                // we recreate the list
                 order_product_view.setAdapter(order_add_modify.this.createList());
             }
         });
     }
 
+    /**
+     * Trigger table button click
+     */
     private class TableClick implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             Button b = (Button)v;
             int buttonText = Integer.parseInt(b.getText().toString());
+            // we set the active table
             setActiveTable(buttonText);
         }
     }
 
     private void setActiveTable(int table) {
+        // update the textview
         table_select_view.setText(getResources().getString(R.string.selected_table) + " " + String.valueOf(table));
+        // set current table (int)
         temp_table = table;
     }
 
@@ -132,7 +158,11 @@ public class order_add_modify extends Activity {
         switch(requestCode) {
             case (1) : {
                 if (resultCode == Activity.RESULT_OK) {
+                    // we received a response from the product view
+                    // means the user selected some products
+                    // we update the product list
                     temp_con = (ArrayList<Connect_Order_Prod>)data.getSerializableExtra("connect_order_product_list");
+                    // recreate the listview
                     order_product_view.setAdapter(this.createList());
                 }
                 break;
@@ -140,10 +170,11 @@ public class order_add_modify extends Activity {
         }
     }
 
-
+    /**
+     * Function to update the listview adapter
+     */
     public ArrayAdapter<String> createList() {
         ArrayAdapter<String>adapter = new ArrayAdapter<String>(this, R.layout.order_prod_list_elem, new String[temp_con.size()]){
-
             // Call for every entry in the ArrayAdapter
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -156,11 +187,12 @@ public class order_add_modify extends Activity {
                 } else {
                     view = convertView;
                 }
+                // get product from database
                 Product list_prod = pds.getProductById(temp_con.get(position).getIdProduct());
-                //Add Text to the layout
+                // set product title
                 TextView textView1 = (TextView) view.findViewById(R.id.listview_product_name);
                 textView1.setText(list_prod.getName().toString());
-
+                // set product amount
                 TextView textView2 = (TextView) view.findViewById(R.id.listview_product_amount);
                 textView2.setText(String.valueOf(temp_con.get(position).getAmount())+"x");
 
@@ -172,11 +204,14 @@ public class order_add_modify extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        // create menu
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_order_add_modfiy, menu);
         if (order_id == 0){
+            // set activity title add
             getActionBar().setTitle(R.string.title_activity_order_add);
         } else {
+            // set activity title modify
             getActionBar().setTitle(R.string.title_activity_order_modify);
         }
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -193,28 +228,38 @@ public class order_add_modify extends Activity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.delete_order_button) {
             if (order_id != 0){
+                // delete order on menu item click
                 ods.deleteOrder(order_id);
             }
             finish();
             return true;
         }
         if (id == R.id.add_order_button) {
+            // user wants to save/modify the order
+            // get timestamp from system
             Long tsLong = System.currentTimeMillis()/1000;
             Order save_order = new Order();
             save_order.setDate(tsLong.intValue());
+            // set table
             save_order.setNumTable(temp_table);
+            // set user
             save_order.setIdUser(uds.getLoggedInUser().getId());
             if (order_id == 0) {
+                // create new order
                 order_id = (int)ods.createOrder(save_order);
             } else {
+                // modify existing order
                 save_order.setId(order_id);
                 ods.updateOrder(save_order);
             }
+            // delete all existing connections
             cds.deleteConnectionByOrderId(order_id);
+            // create all connections
             for (Connect_Order_Prod c : temp_con) {
                 c.setIdOrder(order_id);
                 cds.createConnection(c);
             }
+            // finish view
             finish();
         }
         return super.onOptionsItemSelected(item);

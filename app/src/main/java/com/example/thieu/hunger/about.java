@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 
 /**
- * Created by HugoCastanheiro on 07.11.15.
+ * About View with information about the application
  */
 public class about extends Activity {
     @Override
@@ -14,7 +14,6 @@ public class about extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

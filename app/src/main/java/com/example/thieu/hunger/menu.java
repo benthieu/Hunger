@@ -18,7 +18,12 @@ import com.example.thieu.hunger.db.object.User;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * main activity of the application
+ * shows the different choices that the user has
+ */
 public class menu extends Activity {
+    // init user data source
     private UserDataSource uds;
     private Button btnOrders;
     private Button btnProducts;
@@ -33,12 +38,15 @@ public class menu extends Activity {
         btnOrders = (Button) findViewById(R.id.btnOrders);
         btnProducts = (Button) findViewById(R.id.btnProducts);
         btnTurnovers = (Button) findViewById(R.id.btnDollar);
-
+        // get active user
         User activeUser = uds.getLoggedInUser();
         if (!activeUser.getType()){
+            // check if the active user has admin rights
+            // hide turnover button if not
             btnTurnovers.setVisibility(View.GONE);
         }
 
+        // trigger order button click
         btnOrders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,6 +54,7 @@ public class menu extends Activity {
             }
         });
 
+        // trigger product button click
         btnProducts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,17 +62,22 @@ public class menu extends Activity {
             }
         });
 
+        // trigger turnover button click
         btnTurnovers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToTurnovers();
             }
         });
+
+        // set language
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         changeLanguage(sharedPrefs.getString("pref_lang", "de"));
     }
 
-
+    /**
+     * changelanguage copy from class-example
+     */
     public void changeLanguage(String lang){
         Locale myLocale = new Locale(lang);
         Locale.setDefault(myLocale);
@@ -71,6 +85,7 @@ public class menu extends Activity {
         config.locale = myLocale;
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
 
+        // set button text (With new language)
         btnOrders.setText(R.string.orders);
         btnProducts.setText(R.string.products);
         btnTurnovers.setText(R.string.turnovers);
@@ -78,11 +93,13 @@ public class menu extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        // create menu
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
-        //userManagementButton
         User activeUser = uds.getLoggedInUser();
+        // check if user is admin
         if (!activeUser.getType()){
+            // if not, hide user management menu item
             MenuItem userM = menu.findItem(R.id.userManagementButton);
             userM.setVisible(false);
         }
@@ -98,31 +115,34 @@ public class menu extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.userManagementButton) {
             User activeUser = uds.getLoggedInUser();
             if (activeUser.getType()){
+                // check if the user has admin rights
+                // then start user management
                 Intent myIntent = new Intent(this, user_management.class);
                 startActivity(myIntent);
                 return true;
             }
         }
         if (id == R.id.logoutMenu) {
+            // logout everyone
             List<User> list = uds.getAllUsers();
             for (User u : list) {
                 u.setIsLogged(false);
                 uds.updateUser(u);
             }
+            // finish activity
             this.finish();
             return true;
         }
 
         if (id == R.id.action_settings) {
+            // start settings activity
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
     private void goToOrders() {

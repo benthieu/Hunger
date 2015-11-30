@@ -16,15 +16,13 @@ import com.example.thieu.hunger.db.object.User;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by HugoCastanheiro on 12.11.15.
- */
 public class Connect_Order_Product_DataSource {
         private SQLiteDatabase db;
         private Context context;
 
         public Connect_Order_Product_DataSource(Context context){
             SQLiteHelperClass sqliteHelper = SQLiteHelperClass.getInstance(context);
+            // get database
             db = sqliteHelper.getWritableDatabase();
             this.context = context;
         }
@@ -88,7 +86,7 @@ public class Connect_Order_Product_DataSource {
         }
 
     /**
-     * Get all Connections
+     * Get all Connections by order id
      */
     public ArrayList<Connect_Order_Prod> getAllConnectionsByOrderId(int order_id){
         ArrayList<Connect_Order_Prod> connectOrderProds = new ArrayList<Connect_Order_Prod>();
@@ -135,7 +133,7 @@ public class Connect_Order_Product_DataSource {
         }
 
         /**
-         * Delete a Connection
+         * Delete all Connections by order id
          */
         public void deleteConnectionByOrderId(long id) {
             //delete the Connection
