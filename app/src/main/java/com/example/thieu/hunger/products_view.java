@@ -5,22 +5,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Layout;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.Toast;
 
+import com.example.thieu.hunger.db.object.Connect_Order_Prod;
 import com.example.thieu.hunger.db.adapter.ProductDataSource;
 import com.example.thieu.hunger.db.object.Product;
-import com.example.thieu.hunger.db.object.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,12 +27,19 @@ import java.util.List;
 public class products_view extends Activity {
     private ProductDataSource pds;
     private LinearLayout mainLayout;
+    private boolean wantsCallback;
+    private ArrayList<Connect_Order_Prod> product_con_list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.products_view);
         pds = new ProductDataSource(this);
         mainLayout = (LinearLayout) findViewById(R.id.products_view_layout);
+        Intent i = this.getIntent();
+        wantsCallback = i.getBooleanExtra("wantsCallback",false);
+        if (wantsCallback) {
+            product_con_list = (ArrayList<Connect_Order_Prod>)i.getSerializableExtra("connect_order_product_list");
+        }
         this.recreateView();
     }
 
@@ -88,10 +93,29 @@ public class products_view extends Activity {
         public void onClick(View v) {
             ProductButton thisButton = (ProductButton)v;
             int thisProduct = thisButton.getProduct_id();
-
-            Intent myIntent = new Intent(products_view.this, product_add_modify.class);
-            myIntent.putExtra("product_id", thisProduct);
-            startActivity(myIntent);
+            if (wantsCallback) {
+                int c = 0;
+                int pos = -1;
+                for(Connect_Order_Prod cod : product_con_list) {
+                    if (cod.getIdProduct() == thisProduct) {
+                        pos = c;
+                    }
+                    c++;
+                }
+                if (pos == -1) {
+                    Connect_Order_Prod tempcon = new Connect_Order_Prod();
+                    tempcon.setAmount(1);
+                    tempcon.setIdProduct(thisProduct);
+                    product_con_list.add(tempcon);
+                } else {
+                    product_con_list.get(pos).setAmount(product_con_list.get(pos).getAmount()+1);
+                }
+                Toast.makeText(products_view.this.getApplicationContext(), getResources().getString(R.string.product_added), Toast.LENGTH_SHORT).show();
+            } else {
+                Intent myIntent = new Intent(products_view.this, product_add_modify.class);
+                myIntent.putExtra("product_id", thisProduct);
+                startActivity(myIntent);
+            }
         }
     }
     private class ProductButton extends Button {
@@ -111,6 +135,13 @@ public class products_view extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_products_view, menu);
+        if (wantsCallback) {
+            MenuItem userM = menu.findItem(R.id.add_product_1);
+            userM.setVisible(false);
+        } else {
+            MenuItem userM = menu.findItem(R.id.set_callback);
+            userM.setVisible(false);
+        }
         getActionBar().setTitle(R.string.products_view);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setIcon(R.drawable.main_logo);
@@ -125,10 +156,17 @@ public class products_view extends Activity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.add_product) {
+        if (id == R.id.add_product_1) {
             Intent myIntent = new Intent(this, product_add_modify.class);
             startActivity(myIntent);
             return true;
+        }
+
+        if (id == R.id.set_callback) {
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("connect_order_product_list", product_con_list);
+            setResult(Activity.RESULT_OK, resultIntent);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

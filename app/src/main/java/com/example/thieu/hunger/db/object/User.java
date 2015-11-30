@@ -9,6 +9,9 @@ public class User {
     private String password;
     private boolean type;
     private boolean isLogged;
+    public int val_month;
+    public int val_day;
+    public int val_year;
 
     public boolean isLogged() {
         return isLogged;

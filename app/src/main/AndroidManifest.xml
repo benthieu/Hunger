@@ -53,6 +53,26 @@
             android:label="@string/products_view"
             android:parentActivityName=".menu" >
         </activity>
+        <activity
+            android:name=".orders_view"
+            android:label="@string/orders"
+            android:parentActivityName=".menu" >
+        </activity>
+        <activity
+            android:name=".order_add_modify"
+            android:label="@string/title_activity_order_add"
+            android:parentActivityName=".orders_view" >
+        </activity>
+        <activity
+            android:name=".turnovers"
+            android:label="@string/turnovers"
+            android:parentActivityName=".menu" >
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".menu">
+        </activity>
     </application>
 
 </manifest>

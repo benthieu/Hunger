@@ -49,4 +49,17 @@
     <string name="title_activity_product_delete">Delete Product</string>
     <string name="product_name">Product Name</string>
     <string name="product_price">Price</string>
+    <string name="title_activity_order_add">Add Order</string>
+    <string name="title_activity_order_modify">Modify Order</string>
+    <string name="title_activity_order_delete">Delete Order</string>
+    <string name="selected_table">Selected Table: </string>
+    <string name="product_added">Product added</string>
+    <string name="order_management">Order Mangement</string>
+    <string name="order_view_table">Table: </string>
+    <string name="currency">CHF</string>
+    <string name="turnovers_title">Turnovers</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="pref_select_language">Select your language</string>
+    <string name="pref_summary">Define your preferred language</string>
+    <string name="main_welcome">Willkommen</string>
 </resources>

@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
 import com.example.thieu.hunger.db.HungerContract.OrderEntry;
 import com.example.thieu.hunger.db.HungerContract.ProductEntry;
 import com.example.thieu.hunger.db.SQLiteHelperClass;
@@ -34,7 +36,6 @@ public class OrderDataSource {
         values.put(OrderEntry.KEY_IDUSER, order.getIdUser());
         values.put(OrderEntry.KEY_NUMTABLE, order.getNumTable());
         values.put(OrderEntry.KEY_DATE, order.getDate());
-        values.put(OrderEntry.KEY_ACCOMPLISHED, order.getAccomplished());
 
         id = this.db.insert(OrderEntry.TABLE_ORDER, null, values);
 
@@ -58,9 +59,7 @@ public class OrderDataSource {
         order.setId(cursor.getInt(cursor.getColumnIndex(OrderEntry.KEY_ID)));
         order.setIdUser(cursor.getInt(cursor.getColumnIndex(OrderEntry.KEY_IDUSER)));
         order.setNumTable(cursor.getInt(cursor.getColumnIndex(OrderEntry.KEY_NUMTABLE)));
-        order.setDate(cursor.getString(cursor.getColumnIndex(OrderEntry.KEY_DATE)));
-        order.setAccomplished(cursor.getInt(cursor.getColumnIndex(OrderEntry.KEY_ACCOMPLISHED)) != 0);
-
+        order.setDate(cursor.getInt(cursor.getColumnIndex(OrderEntry.KEY_DATE)));
         return order;
     }
 
@@ -69,7 +68,7 @@ public class OrderDataSource {
      */
     public List<Order> getAllOrders(){
         List<Order> orders = new ArrayList<Order>();
-        String sql = "SELECT * FROM " + OrderEntry.TABLE_ORDER + " ORDER BY " + OrderEntry.KEY_NUMTABLE;
+        String sql = "SELECT * FROM " + OrderEntry.TABLE_ORDER + " ORDER BY " + OrderEntry.KEY_DATE + " DESC";
 
         Cursor cursor = this.db.rawQuery(sql, null);
 
@@ -79,8 +78,31 @@ public class OrderDataSource {
                 order.setId(cursor.getInt(cursor.getColumnIndex(OrderEntry.KEY_ID)));
                 order.setIdUser(cursor.getInt(cursor.getColumnIndex(OrderEntry.KEY_IDUSER)));
                 order.setNumTable(cursor.getInt(cursor.getColumnIndex(OrderEntry.KEY_NUMTABLE)));
-                order.setDate(cursor.getString(cursor.getColumnIndex(OrderEntry.KEY_DATE)));
-                order.setAccomplished(cursor.getInt(cursor.getColumnIndex(OrderEntry.KEY_ACCOMPLISHED)) != 0);
+                order.setDate(cursor.getInt(cursor.getColumnIndex(OrderEntry.KEY_DATE)));
+
+                orders.add(order);
+            } while(cursor.moveToNext());
+        }
+
+        return orders;
+    }
+
+    /**
+     * Get all Orders
+     */
+    public ArrayList<Order> getAllOrdersNewerThan(int day){
+        ArrayList<Order> orders = new ArrayList<Order>();
+        String sql = "SELECT * FROM " + OrderEntry.TABLE_ORDER + " WHERE "+OrderEntry.KEY_DATE+" >= "+day+" ORDER BY " + OrderEntry.KEY_DATE + " DESC";
+
+        Cursor cursor = this.db.rawQuery(sql, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                Order order = new Order();
+                order.setId(cursor.getInt(cursor.getColumnIndex(OrderEntry.KEY_ID)));
+                order.setIdUser(cursor.getInt(cursor.getColumnIndex(OrderEntry.KEY_IDUSER)));
+                order.setNumTable(cursor.getInt(cursor.getColumnIndex(OrderEntry.KEY_NUMTABLE)));
+                order.setDate(cursor.getInt(cursor.getColumnIndex(OrderEntry.KEY_DATE)));
 
                 orders.add(order);
             } while(cursor.moveToNext());
@@ -97,7 +119,6 @@ public class OrderDataSource {
         values.put(OrderEntry.KEY_IDUSER, order.getIdUser());
         values.put(OrderEntry.KEY_NUMTABLE, order.getNumTable());
         values.put(OrderEntry.KEY_DATE, order.getDate());
-        values.put(OrderEntry.KEY_ACCOMPLISHED, order.getAccomplished());
 
         return this.db.update(OrderEntry.TABLE_ORDER, values, OrderEntry.KEY_ID + " = ?",
                 new String[] { String.valueOf(order.getId()) });

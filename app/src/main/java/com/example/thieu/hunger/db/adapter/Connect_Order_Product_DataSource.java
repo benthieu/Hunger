@@ -60,8 +60,7 @@ public class Connect_Order_Product_DataSource {
             Connect_Order_Prod connectOrderProd = new Connect_Order_Prod();
             connectOrderProd.setIdOrder(cursor.getInt(cursor.getColumnIndex(Connect_Order_Product_Entry.KEY_IDORDER)));
             connectOrderProd.setIdProduct(cursor.getInt(cursor.getColumnIndex(Connect_Order_Product_Entry.KEY_IDPRODUCT)));
-            connectOrderProd.setAmount(cursor.getString(cursor.getColumnIndex(Connect_Order_Product_Entry.KEY_AMOUNT)));
-
+            connectOrderProd.setAmount(cursor.getInt(cursor.getColumnIndex(Connect_Order_Product_Entry.KEY_AMOUNT)));
             return connectOrderProd;
         }
 
@@ -78,8 +77,8 @@ public class Connect_Order_Product_DataSource {
                 do{
                     Connect_Order_Prod connectOrderProd = new Connect_Order_Prod();
                     connectOrderProd.setIdOrder(cursor.getInt(cursor.getColumnIndex(Connect_Order_Product_Entry.KEY_IDORDER)));
-                    connectOrderProd.setIdProduct(cursor.getInt(cursor.getColumnIndex(Connect_Order_Product_Entry.KEY_IDORDER)));
-                    connectOrderProd.setAmount(cursor.getString(cursor.getColumnIndex(Connect_Order_Product_Entry.KEY_AMOUNT)));
+                    connectOrderProd.setIdProduct(cursor.getInt(cursor.getColumnIndex(Connect_Order_Product_Entry.KEY_IDPRODUCT)));
+                    connectOrderProd.setAmount(cursor.getInt(cursor.getColumnIndex(Connect_Order_Product_Entry.KEY_AMOUNT)));
 
                     connectOrderProds.add(connectOrderProd);
                 } while(cursor.moveToNext());
@@ -88,6 +87,31 @@ public class Connect_Order_Product_DataSource {
             return connectOrderProds;
         }
 
+    /**
+     * Get all Connections
+     */
+    public ArrayList<Connect_Order_Prod> getAllConnectionsByOrderId(int order_id){
+        ArrayList<Connect_Order_Prod> connectOrderProds = new ArrayList<Connect_Order_Prod>();
+        String sql = "SELECT * FROM " +
+                    Connect_Order_Product_Entry.TABLE_CONNECT_ORDER_PROD +
+                    " WHERE " + Connect_Order_Product_Entry.KEY_IDORDER + " = "+order_id+
+                    " ORDER BY " + Connect_Order_Product_Entry.KEY_IDORDER;
+
+        Cursor cursor = this.db.rawQuery(sql, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                Connect_Order_Prod connectOrderProd = new Connect_Order_Prod();
+                connectOrderProd.setIdOrder(cursor.getInt(cursor.getColumnIndex(Connect_Order_Product_Entry.KEY_IDORDER)));
+                connectOrderProd.setIdProduct(cursor.getInt(cursor.getColumnIndex(Connect_Order_Product_Entry.KEY_IDPRODUCT)));
+                connectOrderProd.setAmount(cursor.getInt(cursor.getColumnIndex(Connect_Order_Product_Entry.KEY_AMOUNT)));
+
+                connectOrderProds.add(connectOrderProd);
+            } while(cursor.moveToNext());
+        }
+
+        return connectOrderProds;
+    }
         /**
          *  Update a Connection
          */
@@ -105,6 +129,15 @@ public class Connect_Order_Product_DataSource {
          * Delete a Connection
          */
         public void deleteConnection(long id) {
+            //delete the Connection
+            this.db.delete(Connect_Order_Product_Entry.TABLE_CONNECT_ORDER_PROD, Connect_Order_Product_Entry.KEY_IDORDER + " = ?",
+                    new String[]{String.valueOf(id)});
+        }
+
+        /**
+         * Delete a Connection
+         */
+        public void deleteConnectionByOrderId(long id) {
             //delete the Connection
             this.db.delete(Connect_Order_Product_Entry.TABLE_CONNECT_ORDER_PROD, Connect_Order_Product_Entry.KEY_IDORDER + " = ?",
                     new String[]{String.valueOf(id)});

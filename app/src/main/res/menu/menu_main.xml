@@ -11,4 +11,9 @@
         android:title="@string/logout"
         android:showAsAction="never"
         android:id="@+id/logoutMenu"/>
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="@string/action_settings"/>
 </menu>

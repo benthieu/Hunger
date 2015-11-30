@@ -1,5 +1,7 @@
 package com.example.thieu.hunger.db.object;
 
+import java.util.ArrayList;
+
 /**
  * Created by HugoCastanheiro on 07.11.15.
  */
@@ -7,8 +9,7 @@ public class Order {
     private int id;
     private int idUser;
     private int numTable;
-    private String date;
-    private boolean accomplished;
+    private int date;
 
     public int getId() {
         return id;
@@ -28,16 +29,10 @@ public class Order {
     public void setNumTable(int numTable) {
         this.numTable = numTable;
     }
-    public String getDate() {
+    public int getDate() {
         return date;
     }
-    public void setDate(String date) {
+    public void setDate(int date) {
         this.date = date;
-    }
-    public boolean getAccomplished() {
-        return accomplished;
-    }
-    public void setAccomplished(boolean accomplished) {
-        this.accomplished = accomplished;
     }
 }

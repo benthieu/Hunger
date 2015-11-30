@@ -7,5 +7,10 @@
         android:icon="@drawable/add"
         android:title="@string/add_product"
         android:showAsAction="always"
-        android:id="@+id/add_product"/>
+        android:id="@+id/add_product_1"/>
+    <item
+        android:icon="@drawable/ok"
+        android:title="@string/add_product"
+        android:showAsAction="always"
+        android:id="@+id/set_callback"/>
 </menu>

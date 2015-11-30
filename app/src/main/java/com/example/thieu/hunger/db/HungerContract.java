@@ -51,14 +51,13 @@ public final class HungerContract {
 
     public static abstract class OrderEntry implements BaseColumns {
 
-        public static final String TABLE_ORDER = "order_table";
+        public static final String TABLE_ORDER = "orders";
 
         //Product Column names
         public static final String KEY_ID = "id";
         public static final String KEY_IDUSER = "idUser";
         public static final String KEY_NUMTABLE = "numTable";
         public static final String KEY_DATE = "orderDate";
-        public static final String KEY_ACCOMPLISHED = "accomplished";
 
 
         //Table Order create
@@ -66,9 +65,8 @@ public final class HungerContract {
                 + TABLE_ORDER + " ("
                 + OrderEntry.KEY_ID + " INTEGER PRIMARY KEY, "
                 + OrderEntry.KEY_IDUSER+ " INTEGER, "
-                + OrderEntry.KEY_NUMTABLE + " TEXT, "
-                + OrderEntry.KEY_DATE + " TEXT, "
-                + OrderEntry.KEY_ACCOMPLISHED + " TEXT "
+                + OrderEntry.KEY_NUMTABLE + " INTEGER, "
+                + OrderEntry.KEY_DATE + " INTEGER "
                 + ");";
     }
 
@@ -79,14 +77,14 @@ public final class HungerContract {
         //Product Column names
         public static final String KEY_IDORDER = "idOrder";
         public static final String KEY_IDPRODUCT = "idProduct";
-        public static final String KEY_AMOUNT= "amount";
+        public static final String KEY_AMOUNT = "amount";
 
         //Table Order create
         public static final String CREATE_TABLE_CONNECT_ORDER_PROD = "CREATE TABLE "
                 + TABLE_CONNECT_ORDER_PROD + "( "
                 + Connect_Order_Product_Entry.KEY_IDORDER + " INTEGER, "
                 + Connect_Order_Product_Entry.KEY_IDPRODUCT+ " INTEGER, "
-                + Connect_Order_Product_Entry.KEY_AMOUNT + " TEXT "
+                + Connect_Order_Product_Entry.KEY_AMOUNT + " INTEGER "
                 + ");";
     }
 }

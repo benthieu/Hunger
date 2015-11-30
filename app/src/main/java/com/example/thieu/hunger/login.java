@@ -3,7 +3,6 @@ package com.example.thieu.hunger;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,8 +39,10 @@ public class login extends Activity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = ((EditText) findViewById(R.id.editTxtUser)).getText().toString();
-                String password = ((EditText) findViewById(R.id.editTxtPW)).getText().toString();
+                EditText text_user = (EditText) findViewById(R.id.editTxtUser);
+                EditText text_pass = (EditText) findViewById(R.id.editTxtPW);
+                String username = (text_user).getText().toString();
+                String password = (text_pass).getText().toString();
                 List<User> list = uds.getAllUsers();
                 boolean loginSuccess = false;
                 for (User u : list) {
@@ -52,6 +53,8 @@ public class login extends Activity {
                     }
                 }
                 if (loginSuccess) {
+                    text_user.setText("");
+                    text_pass.setText("");
                     goToMenuOrOrders(v);
                 } else {
                     Toast.makeText(login.this.getApplicationContext(), getResources().getString(R.string.login_failure), Toast.LENGTH_SHORT).show();
@@ -69,13 +72,6 @@ public class login extends Activity {
         getActionBar().setIcon(R.drawable.main_logo);
         return true;
     }
-    /*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login, menu);
-        return true;
-    }*/
 
     @Override
     public void onResume() {

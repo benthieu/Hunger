@@ -7,89 +7,91 @@
     android:background="@color/backGround">
 
     <LinearLayout
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp">
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:hint="@string/today"
-            android:textStyle="bold"
-            android:ellipsize="start"
-            android:gravity="center|bottom"
-            android:textSize="20dp"
-            android:id="@+id/today_Desc"/>
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:hint="@string/month"
-            android:textStyle="bold"
-            android:ellipsize="start"
-            android:gravity="center|bottom"
-            android:textSize="20dp"
-            android:id="@+id/month_Desc"
-            android:layout_marginLeft="10dp"/>
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:hint="@string/year"
-            android:textStyle="bold"
-            android:ellipsize="start"
-            android:gravity="center|bottom"
-            android:textSize="20dp"
-            android:id="@+id/year_Desc"
-            android:layout_marginLeft="10dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp">
-        
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/can_today"
-            android:background="@color/buttons"
-            android:hint="@string/soldToday"
-            android:ellipsize="start"
-            android:gravity="center"
-            android:textSize="20dp"/>
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/can_yesterday"
-            android:background="@color/buttons"
-            android:hint="@string/soldMonth"
-            android:ellipsize="start"
-            android:gravity="center"
-            android:textSize="20dp"
-            android:layout_marginLeft="10dp"/>
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/can"
-            android:background="@color/buttons"
-            android:hint="@string/soldYear"
-            android:ellipsize="start"
-            android:gravity="center"
-            android:textSize="20dp"
-            android:layout_marginLeft="10dp"/>
-
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/today"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:textColor="@color/text_color"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/can_today"
+                android:background="@color/buttons"
+                android:padding="5dp"
+                android:minWidth="200dp"
+                android:gravity="center"
+                android:textSize="20dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/month"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:textColor="@color/text_color"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/can_month"
+                android:background="@color/buttons"
+                android:padding="5dp"
+                android:minWidth="200dp"
+                android:gravity="center"
+                android:textSize="20dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/year"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:textColor="@color/text_color"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/can_year"
+                android:background="@color/buttons"
+                android:minWidth="200dp"
+                android:padding="5dp"
+                android:gravity="center"
+                android:textSize="20dp"/>
+        </LinearLayout>
     </LinearLayout>
-
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listViewOrders"
+        android:id="@+id/listview_turnovers"
         android:layout_marginTop="10dp"
         android:scrollbars="horizontal" />
-
 </LinearLayout>
